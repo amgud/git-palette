@@ -4,7 +4,7 @@ import { executeGitCommand } from '../utils';
 /**
  * Git Commit Amend command implementation
  * Allows amending the previous commit with a new message
- * Automatically adds all files before amending
+ * Automatically adds all files before amending if the setting is enabled
  */
 export async function gitCommitAmend() {
   try {
@@ -22,9 +22,15 @@ export async function gitCommitAmend() {
       return; // User cancelled
     }
 
-    // Automatically add all files
-    await executeGitCommand('add .');
-    vscode.window.showInformationMessage('Added all files to staging area');
+    // Check if auto-add is enabled
+    const config = vscode.workspace.getConfiguration('git-commands-toolkit');
+    const autoAddFiles = config.get<boolean>('autoAddFiles', true);
+
+    // Automatically add all files if the setting is enabled
+    if (autoAddFiles) {
+      await executeGitCommand('add .');
+      vscode.window.showInformationMessage('Added all files to staging area');
+    }
 
     // Execute the amend command
     await executeGitCommand(`commit --amend -m "${message}"`);
