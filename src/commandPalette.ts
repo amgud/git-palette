@@ -62,6 +62,13 @@ export async function showCommandPalette() {
       alwaysShow: true,
       keywords: ['undo', 'reset', 'revert', 'commit', 'rollback'],
     },
+    {
+      label: '$(edit) Edit Commit Message',
+      description: 'Edit the message of the most recent commit',
+      command: 'git-commands-toolkit.gitEditCommitMessage',
+      alwaysShow: true,
+      keywords: ['edit', 'change', 'modify', 'commit', 'message', 'amend'],
+    },
   ];
 
   // Create a custom QuickPick for better fuzzy search
