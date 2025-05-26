@@ -55,6 +55,18 @@ export function activate(context: vscode.ExtensionContext): void {
             alwaysShow: true,
           },
           {
+            label: '$(checklist) Git Commit Amend',
+            description: 'Amend the previous commit',
+            command: 'git-commands-toolkit.gitCommitAmend',
+            alwaysShow: true,
+          },
+          {
+            label: '$(arrow-right) Git Commit Force',
+            description: 'Force commit changes',
+            command: 'git-commands-toolkit.gitCommitForce',
+            alwaysShow: true,
+          },
+          {
             label: '$(repo-clone) Git Clone',
             description: 'Clone a repository into a new directory',
             command: 'git-commands-toolkit.gitClone',
@@ -113,6 +125,7 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'git-commands-toolkit.gitCommit',
       async () => {
+        // First prompt for the commit message
         const message = await vscode.window.showInputBox({
           prompt: 'Commit message',
           placeHolder: 'Enter commit message',
@@ -121,9 +134,47 @@ export function activate(context: vscode.ExtensionContext): void {
         if (!message) {
           return; // User cancelled or entered empty message
         }
+
+        // Then show checkboxes for amend and force options
+        const commitOptions = await vscode.window.showQuickPick(
+          [
+            { label: 'Amend previous commit', picked: false },
+            { label: 'Force commit', picked: false },
+          ],
+          {
+            placeHolder: 'Select commit options (if any)',
+            canPickMany: true,
+          }
+        );
+
+        if (!commitOptions) {
+          return; // User cancelled
+        }
+
+        const shouldAmend = commitOptions.some(
+          (option) => option.label === 'Amend previous commit'
+        );
+
+        const shouldForce = commitOptions.some(
+          (option) => option.label === 'Force commit'
+        );
+
         try {
-          await executeGitCommand(`commit -m "${message}"`);
-          vscode.window.showInformationMessage(`Committed: ${message}`);
+          let commitCommand = 'commit';
+          if (shouldAmend) {
+            commitCommand += ' --amend';
+          }
+          if (shouldForce) {
+            commitCommand += ' --force';
+          }
+
+          await executeGitCommand(`${commitCommand} -m "${message}"`);
+
+          const amendText = shouldAmend ? ' (amended)' : '';
+          const forceText = shouldForce ? ' (forced)' : '';
+          vscode.window.showInformationMessage(
+            `Committed${amendText}${forceText}: ${message}`
+          );
         } catch (error) {
           vscode.window.showErrorMessage(`Git Commit Error: ${error}`);
         }
