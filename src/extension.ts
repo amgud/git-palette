@@ -1,60 +1,163 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as cp from 'child_process';
+import * as path from 'path';
+
+// Helper function to execute git commands
+async function executeGitCommand(
+  command: string,
+  cwd?: string
+): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const workspaceFolder =
+      cwd || vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+
+    if (!workspaceFolder) {
+      reject('No workspace folder found');
+      return;
+    }
+
+    cp.exec(
+      `git ${command}`,
+      { cwd: workspaceFolder },
+      (error, stdout, stderr) => {
+        if (error) {
+          reject(stderr || error.message);
+          return;
+        }
+        resolve(stdout);
+      }
+    );
+  });
+}
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext): void {
+  // Git Status command
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.runCommand',
+      'getting-started-sample.gitStatus',
       async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        vscode.commands.executeCommand(
-          'getting-started-sample.sayHello',
-          vscode.Uri.joinPath(context.extensionUri, 'sample-folder')
-        );
+        try {
+          const status = await executeGitCommand('status');
+          vscode.window.showInformationMessage('Git Status', {
+            modal: false,
+            detail: status,
+          });
+        } catch (error) {
+          vscode.window.showErrorMessage(`Git Status Error: ${error}`);
+        }
       }
     )
   );
 
+  // Git Add command
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.changeSetting',
+      'getting-started-sample.gitAdd',
       async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        vscode.workspace
-          .getConfiguration('getting-started-sample')
-          .update('sampleSetting', true);
+        const files = await vscode.window.showInputBox({
+          prompt: 'Files to add (e.g., "." for all files)',
+          placeHolder: '.',
+          value: '.',
+        });
+
+        if (files === undefined) {
+          return; // User cancelled
+        }
+        try {
+          await executeGitCommand(`add ${files}`);
+          vscode.window.showInformationMessage(`Added files: ${files}`);
+        } catch (error) {
+          vscode.window.showErrorMessage(`Git Add Error: ${error}`);
+        }
       }
     )
   );
 
+  // Git Commit command
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.setContext',
+      'getting-started-sample.gitCommit',
       async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        vscode.commands.executeCommand(
-          'setContext',
-          'gettingStartedContextKey',
-          true
-        );
+        const message = await vscode.window.showInputBox({
+          prompt: 'Commit message',
+          placeHolder: 'Enter commit message',
+        });
+
+        if (!message) {
+          return; // User cancelled or entered empty message
+        }
+        try {
+          await executeGitCommand(`commit -m "${message}"`);
+          vscode.window.showInformationMessage(`Committed: ${message}`);
+        } catch (error) {
+          vscode.window.showErrorMessage(`Git Commit Error: ${error}`);
+        }
       }
     )
   );
 
-  context.subscriptions.push(
-    vscode.commands.registerCommand('getting-started-sample.sayHello', () => {
-      vscode.window.showInformationMessage('Hello');
-    })
-  );
-
+  // Git Clone command
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.viewSources',
-      () => {
-        return { openFolder: vscode.Uri.joinPath(context.extensionUri, 'src') };
+      'getting-started-sample.gitClone',
+      async () => {
+        const repoUrl = await vscode.window.showInputBox({
+          prompt: 'Repository URL',
+          placeHolder: 'https://github.com/user/repo.git',
+        });
+
+        if (!repoUrl) {
+          return; // User cancelled
+        }
+
+        const folderUri = await vscode.window.showOpenDialog({
+          canSelectFiles: false,
+          canSelectFolders: true,
+          canSelectMany: false,
+          openLabel: 'Select Folder for Clone',
+        });
+
+        if (!folderUri || folderUri.length === 0) {
+          return; // User cancelled
+        }
+
+        try {
+          const targetPath = folderUri[0].fsPath;
+          const result = await executeGitCommand(
+            `clone ${repoUrl}`,
+            targetPath
+          );
+          vscode.window.showInformationMessage(`Cloned repository: ${repoUrl}`);
+
+          const repoName = path.basename(
+            repoUrl.endsWith('.git') ? repoUrl.slice(0, -4) : repoUrl
+          );
+
+          const clonedFolderPath = path.join(targetPath, repoName);
+          const uri = vscode.Uri.file(clonedFolderPath);
+          vscode.commands.executeCommand('vscode.openFolder', uri);
+        } catch (error) {
+          vscode.window.showErrorMessage(`Git Clone Error: ${error}`);
+        }
+      }
+    )
+  );
+
+  // Git Pull command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'getting-started-sample.gitPull',
+      async () => {
+        try {
+          const result = await executeGitCommand('pull');
+          vscode.window.showInformationMessage(`Pull successful: ${output.trim()}`);
+        } catch (error) {
+          vscode.window.showErrorMessage(`Git Pull Error: ${error}`);
+        }
       }
     )
   );
@@ -66,39 +169,39 @@ export function activate(context: vscode.ExtensionContext): void {
       async () => {
         const commands = [
           {
-            label: '$(sparkle) Say Hello',
-            description: 'Display a hello world message',
-            command: 'getting-started-sample.sayHello',
+            label: '$(repo) Git Status',
+            description: 'Show working tree status',
+            command: 'getting-started-sample.gitStatus',
             alwaysShow: true,
           },
           {
-            label: '$(settings-gear) Change Sample Setting',
-            description: 'Toggle the sample setting value',
-            command: 'getting-started-sample.changeSetting',
+            label: '$(add) Git Add',
+            description: 'Add file contents to the index',
+            command: 'getting-started-sample.gitAdd',
             alwaysShow: true,
           },
           {
-            label: '$(play) Run Command',
-            description: 'Run a sample command',
-            command: 'getting-started-sample.runCommand',
+            label: '$(check) Git Commit',
+            description: 'Record changes to the repository',
+            command: 'getting-started-sample.gitCommit',
             alwaysShow: true,
           },
           {
-            label: '$(key) Set Context',
-            description: 'Set a context key',
-            command: 'getting-started-sample.setContext',
+            label: '$(repo-clone) Git Clone',
+            description: 'Clone a repository into a new directory',
+            command: 'getting-started-sample.gitClone',
             alwaysShow: true,
           },
           {
-            label: '$(folder) View Sources',
-            description: 'Open the extension source folder',
-            command: 'getting-started-sample.viewSources',
+            label: '$(sync) Git Pull',
+            description: 'Fetch from and integrate with another repository',
+            command: 'getting-started-sample.gitPull',
             alwaysShow: true,
           },
         ];
 
         const selectedItem = await vscode.window.showQuickPick(commands, {
-          placeHolder: 'Select a command to run',
+          placeHolder: 'Select a Git command to run',
           matchOnDescription: true,
           matchOnDetail: true,
         });
