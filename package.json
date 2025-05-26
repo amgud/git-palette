@@ -21,7 +21,6 @@
     "onCommand:git-commands-toolkit.gitAdd",
     "onCommand:git-commands-toolkit.gitCommit",
     "onCommand:git-commands-toolkit.gitCommitAmend",
-    "onCommand:git-commands-toolkit.gitCommitForce",
     "onCommand:git-commands-toolkit.gitClone",
     "onCommand:git-commands-toolkit.gitPull",
     "onCommand:git-commands-toolkit.gitPush",
@@ -41,10 +40,6 @@
       {
         "title": "Commit Amend",
         "command": "git-commands-toolkit.gitCommitAmend"
-      },
-      {
-        "title": "Commit Force",
-        "command": "git-commands-toolkit.gitCommitForce"
       },
       {
         "title": "Clone",
