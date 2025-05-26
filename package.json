@@ -14,20 +14,16 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:getting-started-sample.gitStatus",
     "onCommand:getting-started-sample.gitAdd",
     "onCommand:getting-started-sample.gitCommit",
     "onCommand:getting-started-sample.gitClone",
     "onCommand:getting-started-sample.gitPull",
+    "onCommand:getting-started-sample.gitPush",
     "onCommand:getting-started-sample.showCustomCommands"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "title": "Git: Status",
-        "command": "getting-started-sample.gitStatus"
-      },
       {
         "title": "Git: Add",
         "command": "getting-started-sample.gitAdd"
@@ -43,6 +39,10 @@
       {
         "title": "Git: Pull",
         "command": "getting-started-sample.gitPull"
+      },
+      {
+        "title": "Git: Push",
+        "command": "getting-started-sample.gitPush"
       },
       {
         "title": "Git: Show Commands",

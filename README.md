@@ -7,11 +7,11 @@ This extension provides quick access to common Git commands directly from VS Cod
 - Access Git commands directly from VS Code
 - Execute Git commands with a user-friendly interface
 - Available commands:
-  - Git Status - Show working tree status
   - Git Add - Add file contents to the index
   - Git Commit - Record changes to the repository
   - Git Clone - Clone a repository into a new directory
   - Git Pull - Fetch from and integrate with another repository
+  - Git Push - Push local changes to a remote repository
 
 ## Usage
 

@@ -43,12 +43,6 @@ export function activate(context: vscode.ExtensionContext): void {
         // Show our Git commands
         const commands = [
           {
-            label: '$(repo) Git Status',
-            description: 'Show working tree status',
-            command: 'getting-started-sample.gitStatus',
-            alwaysShow: true,
-          },
-          {
             label: '$(add) Git Add',
             description: 'Add file contents to the index',
             command: 'getting-started-sample.gitAdd',
@@ -72,6 +66,12 @@ export function activate(context: vscode.ExtensionContext): void {
             command: 'getting-started-sample.gitPull',
             alwaysShow: true,
           },
+          {
+            label: '$(cloud-upload) Git Push',
+            description: 'Push local changes to a remote repository',
+            command: 'getting-started-sample.gitPush',
+            alwaysShow: true,
+          },
         ];
 
         const selectedItem = await vscode.window.showQuickPick(commands, {
@@ -82,24 +82,6 @@ export function activate(context: vscode.ExtensionContext): void {
 
         if (selectedItem && selectedItem.command) {
           vscode.commands.executeCommand(selectedItem.command);
-        }
-      }
-    )
-  );
-
-  // Git Status command
-  context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'getting-started-sample.gitStatus',
-      async () => {
-        try {
-          const status = await executeGitCommand('status');
-          vscode.window.showInformationMessage('Git Status', {
-            modal: false,
-            detail: status,
-          });
-        } catch (error) {
-          vscode.window.showErrorMessage(`Git Status Error: ${error}`);
         }
       }
     )
@@ -207,6 +189,23 @@ export function activate(context: vscode.ExtensionContext): void {
           );
         } catch (error) {
           vscode.window.showErrorMessage(`Git Pull Error: ${error}`);
+        }
+      }
+    )
+  );
+
+  // Git Push command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'getting-started-sample.gitPush',
+      async () => {
+        try {
+          const output = await executeGitCommand('push');
+          vscode.window.showInformationMessage(
+            `Push successful: ${output.trim()}`
+          );
+        } catch (error) {
+          vscode.window.showErrorMessage(`Git Push Error: ${error}`);
         }
       }
     )
