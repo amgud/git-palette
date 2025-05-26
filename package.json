@@ -211,8 +211,8 @@
     "keybindings": [
       {
         "command": "getting-started-sample.showCustomCommands",
-        "key": "ctrl+g",
-        "mac": "cmd+g"
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g"
       }
     ]
   },

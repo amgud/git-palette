@@ -24,7 +24,7 @@ You can access Git commands in two ways:
 
 ### Using Keyboard Shortcut
 
-1. Press `Cmd+G` (Mac) or `Ctrl+G` (Windows/Linux)
+1. Press `Cmd+Shift+G` (Mac) or `Ctrl+Shift+G` (Windows/Linux)
 2. Select a Git command from the quick pick menu
 
 ## Requirements
