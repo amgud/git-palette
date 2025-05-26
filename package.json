@@ -208,11 +208,11 @@
         }
       }
     },
-    "quickPickProviders": [
+    "keybindings": [
       {
-        "providerType": "general",
-        "prefix": "g",
-        "command": "getting-started-sample.showCustomCommands"
+        "command": "getting-started-sample.showCustomCommands",
+        "key": "ctrl+g",
+        "mac": "cmd+g"
       }
     ]
   },

@@ -35,6 +35,58 @@ async function executeGitCommand(
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext): void {
+  // Add this command to monitor when the command palette is opened
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'getting-started-sample.showCustomCommands',
+      async () => {
+        // Show our Git commands
+        const commands = [
+          {
+            label: '$(repo) Git Status',
+            description: 'Show working tree status',
+            command: 'getting-started-sample.gitStatus',
+            alwaysShow: true,
+          },
+          {
+            label: '$(add) Git Add',
+            description: 'Add file contents to the index',
+            command: 'getting-started-sample.gitAdd',
+            alwaysShow: true,
+          },
+          {
+            label: '$(check) Git Commit',
+            description: 'Record changes to the repository',
+            command: 'getting-started-sample.gitCommit',
+            alwaysShow: true,
+          },
+          {
+            label: '$(repo-clone) Git Clone',
+            description: 'Clone a repository into a new directory',
+            command: 'getting-started-sample.gitClone',
+            alwaysShow: true,
+          },
+          {
+            label: '$(sync) Git Pull',
+            description: 'Fetch from and integrate with another repository',
+            command: 'getting-started-sample.gitPull',
+            alwaysShow: true,
+          },
+        ];
+
+        const selectedItem = await vscode.window.showQuickPick(commands, {
+          placeHolder: 'Select a Git command to run',
+          matchOnDescription: true,
+          matchOnDetail: true,
+        });
+
+        if (selectedItem && selectedItem.command) {
+          vscode.commands.executeCommand(selectedItem.command);
+        }
+      }
+    )
+  );
+
   // Git Status command
   context.subscriptions.push(
     vscode.commands.registerCommand(
@@ -124,13 +176,9 @@ export function activate(context: vscode.ExtensionContext): void {
         if (!folderUri || folderUri.length === 0) {
           return; // User cancelled
         }
-
         try {
           const targetPath = folderUri[0].fsPath;
-          const result = await executeGitCommand(
-            `clone ${repoUrl}`,
-            targetPath
-          );
+          await executeGitCommand(`clone ${repoUrl}`, targetPath);
           vscode.window.showInformationMessage(`Cloned repository: ${repoUrl}`);
 
           const repoName = path.basename(
@@ -153,61 +201,12 @@ export function activate(context: vscode.ExtensionContext): void {
       'getting-started-sample.gitPull',
       async () => {
         try {
-          const result = await executeGitCommand('pull');
-          vscode.window.showInformationMessage(`Pull successful: ${output.trim()}`);
+          const output = await executeGitCommand('pull');
+          vscode.window.showInformationMessage(
+            `Pull successful: ${output.trim()}`
+          );
         } catch (error) {
           vscode.window.showErrorMessage(`Git Pull Error: ${error}`);
-        }
-      }
-    )
-  );
-
-  // Register custom command to show quick pick with 'g' prefix
-  context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'getting-started-sample.showCustomCommands',
-      async () => {
-        const commands = [
-          {
-            label: '$(repo) Git Status',
-            description: 'Show working tree status',
-            command: 'getting-started-sample.gitStatus',
-            alwaysShow: true,
-          },
-          {
-            label: '$(add) Git Add',
-            description: 'Add file contents to the index',
-            command: 'getting-started-sample.gitAdd',
-            alwaysShow: true,
-          },
-          {
-            label: '$(check) Git Commit',
-            description: 'Record changes to the repository',
-            command: 'getting-started-sample.gitCommit',
-            alwaysShow: true,
-          },
-          {
-            label: '$(repo-clone) Git Clone',
-            description: 'Clone a repository into a new directory',
-            command: 'getting-started-sample.gitClone',
-            alwaysShow: true,
-          },
-          {
-            label: '$(sync) Git Pull',
-            description: 'Fetch from and integrate with another repository',
-            command: 'getting-started-sample.gitPull',
-            alwaysShow: true,
-          },
-        ];
-
-        const selectedItem = await vscode.window.showQuickPick(commands, {
-          placeHolder: 'Select a Git command to run',
-          matchOnDescription: true,
-          matchOnDetail: true,
-        });
-
-        if (selectedItem && selectedItem.command) {
-          vscode.commands.executeCommand(selectedItem.command);
         }
       }
     )
