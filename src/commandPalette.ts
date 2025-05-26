@@ -69,6 +69,13 @@ export async function showCommandPalette() {
       alwaysShow: true,
       keywords: ['edit', 'change', 'modify', 'commit', 'message', 'amend'],
     },
+    {
+      label: '$(edit) Rename Branch',
+      description: 'Rename the current branch',
+      command: 'git-palette.renameBranch',
+      alwaysShow: true,
+      keywords: ['rename', 'branch', 'change', 'name', 'modify'],
+    },
   ];
 
   // Create a custom QuickPick for better fuzzy search

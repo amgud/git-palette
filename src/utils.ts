@@ -33,3 +33,38 @@ export async function executeGitCommand(
     );
   });
 }
+
+/**
+ * Gets the current Git repository from the active file or workspace
+ * @returns Object with repository info or undefined if not found
+ */
+export function getCurrentRepository(): { rootUri: vscode.Uri } | undefined {
+  // Get the active file's path
+  const activeEditor = vscode.window.activeTextEditor;
+  const workspaceFolders = vscode.workspace.workspaceFolders;
+
+  if (!workspaceFolders || workspaceFolders.length === 0) {
+    vscode.window.showErrorMessage('No workspace folder found');
+    return undefined;
+  }
+
+  // If there's an active file, use its folder, otherwise use the first workspace folder
+  const folderUri = activeEditor
+    ? vscode.Uri.file(activeEditor.document.uri.fsPath).with({
+        path: activeEditor.document.uri.path.split('/').slice(0, -1).join('/'),
+      })
+    : workspaceFolders[0].uri;
+
+  return { rootUri: folderUri };
+}
+
+/**
+ * Shows an error message with details
+ * @param message The main error message
+ * @param error The error object or message
+ */
+export function showErrorMessage(message: string, error: any): void {
+  const errorMessage = error instanceof Error ? error.message : String(error);
+  vscode.window.showErrorMessage(`${message}: ${errorMessage}`);
+  console.error(message, error);
+}

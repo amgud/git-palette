@@ -24,6 +24,7 @@
     "onCommand:git-palette.gitClone",
     "onCommand:git-palette.gitPull",
     "onCommand:git-palette.gitPush",
+    "onCommand:git-palette.renameBranch",
     "onCommand:git-palette.showCustomCommands"
   ],
   "main": "./dist/extension.js",
@@ -71,6 +72,10 @@
       {
         "title": "Show Git Commands",
         "command": "git-palette.showCustomCommands"
+      },
+      {
+        "title": "Rename Branch",
+        "command": "git-palette.renameBranch"
       }
     ],
     "keybindings": [
