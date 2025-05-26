@@ -15,12 +15,9 @@ export async function gitCommit() {
     return; // User cancelled or entered empty message
   }
 
-  // Then show checkboxes for amend and force options
+  // Then show checkbox for amend option
   const commitOptions = await vscode.window.showQuickPick(
-    [
-      { label: 'Amend previous commit', picked: false },
-      { label: 'Force commit', picked: false },
-    ],
+    [{ label: 'Amend previous commit', picked: false }],
     {
       placeHolder: 'Select commit options (if any)',
       canPickMany: true,
@@ -35,26 +32,16 @@ export async function gitCommit() {
     (option) => option.label === 'Amend previous commit'
   );
 
-  const shouldForce = commitOptions.some(
-    (option) => option.label === 'Force commit'
-  );
-
   try {
     let commitCommand = 'commit';
     if (shouldAmend) {
       commitCommand += ' --amend';
     }
-    if (shouldForce) {
-      commitCommand += ' --force';
-    }
 
     await executeGitCommand(`${commitCommand} -m "${message}"`);
 
     const amendText = shouldAmend ? ' (amended)' : '';
-    const forceText = shouldForce ? ' (forced)' : '';
-    vscode.window.showInformationMessage(
-      `Committed${amendText}${forceText}: ${message}`
-    );
+    vscode.window.showInformationMessage(`Committed${amendText}: ${message}`);
   } catch (error) {
     vscode.window.showErrorMessage(`Git Commit Error: ${error}`);
   }
