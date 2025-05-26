@@ -26,7 +26,7 @@
     "onCommand:git-palette.gitPush",
     "onCommand:git-palette.showCustomCommands"
   ],
-  "main": "./out/extension.js",
+  "main": "./build/extension.js",
   "contributes": {
     "configuration": {
       "title": "Git Palette",
@@ -83,22 +83,16 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run build",
-    "build": "tsc -p ./",
-    "lint": "eslint",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run build && npm run lint",
-    "test": "node ./out/test/runTest.js"
+    "build": "tsc --noEmit && bun build.ts",
+    "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
-    "@stylistic/eslint-plugin": "^2.9.0",
     "@types/node": "^20",
     "@types/vscode": "^1.73.0",
-    "eslint": "^9.13.0",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.26.0"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@types/bun": "^1.2.14",
     "fuzzysort": "^3.1.0"
   }
 }
