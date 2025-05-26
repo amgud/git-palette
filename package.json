@@ -35,6 +35,11 @@
           "type": "boolean",
           "default": true,
           "description": "Automatically add all files when committing or amending a commit"
+        },
+        "git-commands-toolkit.alwaysAddAllChanges": {
+          "type": "boolean",
+          "default": true,
+          "description": "Always add all changes when using Git Add command (true) or prompt for files to add (false)"
         }
       }
     },

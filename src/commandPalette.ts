@@ -89,9 +89,7 @@ export async function showCommandPalette() {
     const searchTargets = commands.map((cmd) => {
       // Create a combined search string from label, description, and keywords
       const labelNoIcons = cmd.label.replace(/\$\([^)]+\)\s*/, ''); // Remove icon
-      const searchText = [labelNoIcons, ...(cmd.keywords || [])]
-        .join(' ')
-        .toLowerCase();
+      const searchText = labelNoIcons.toLowerCase();
 
       return {
         searchText,
