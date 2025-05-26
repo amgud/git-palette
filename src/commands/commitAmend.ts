@@ -23,7 +23,7 @@ export async function gitCommitAmend() {
     }
 
     // Check if auto-add is enabled
-    const config = vscode.workspace.getConfiguration('git-commands-toolkit');
+    const config = vscode.workspace.getConfiguration('git-palette');
     const autoAddFiles = config.get<boolean>('autoAddFiles', true);
 
     // Automatically add all files if the setting is enabled

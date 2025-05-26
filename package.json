@@ -1,6 +1,6 @@
 {
-  "name": "git-commands-toolkit",
-  "displayName": "Git Commands Toolkit",
+  "name": "git-palette",
+  "displayName": "Git Palette",
   "description": "Quick access to common Git commands with keyboard shortcuts",
   "version": "0.0.1",
   "publisher": "vscode-samples",
@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/git-commands-toolkit"
+    "url": "https://github.com/yourusername/git-palette"
   },
   "engines": {
     "vscode": "^1.73.0"
@@ -18,25 +18,25 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:git-commands-toolkit.gitAdd",
-    "onCommand:git-commands-toolkit.gitCommit",
-    "onCommand:git-commands-toolkit.gitCommitAmend",
-    "onCommand:git-commands-toolkit.gitClone",
-    "onCommand:git-commands-toolkit.gitPull",
-    "onCommand:git-commands-toolkit.gitPush",
-    "onCommand:git-commands-toolkit.showCustomCommands"
+    "onCommand:git-palette.gitAdd",
+    "onCommand:git-palette.gitCommit",
+    "onCommand:git-palette.gitCommitAmend",
+    "onCommand:git-palette.gitClone",
+    "onCommand:git-palette.gitPull",
+    "onCommand:git-palette.gitPush",
+    "onCommand:git-palette.showCustomCommands"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
-      "title": "Git Commands Toolkit",
+      "title": "Git Palette",
       "properties": {
-        "git-commands-toolkit.autoAddFiles": {
+        "git-palette.autoAddFiles": {
           "type": "boolean",
           "default": true,
           "description": "Automatically add all files when committing or amending a commit"
         },
-        "git-commands-toolkit.alwaysAddAllChanges": {
+        "git-palette.alwaysAddAllChanges": {
           "type": "boolean",
           "default": true,
           "description": "Always add all changes when using Git Add command (true) or prompt for files to add (false)"
@@ -46,36 +46,36 @@
     "commands": [
       {
         "title": "Add",
-        "command": "git-commands-toolkit.gitAdd"
+        "command": "git-palette.gitAdd"
       },
       {
         "title": "Commit",
-        "command": "git-commands-toolkit.gitCommit"
+        "command": "git-palette.gitCommit"
       },
       {
         "title": "Commit Amend",
-        "command": "git-commands-toolkit.gitCommitAmend"
+        "command": "git-palette.gitCommitAmend"
       },
       {
         "title": "Clone",
-        "command": "git-commands-toolkit.gitClone"
+        "command": "git-palette.gitClone"
       },
       {
         "title": "Pull",
-        "command": "git-commands-toolkit.gitPull"
+        "command": "git-palette.gitPull"
       },
       {
         "title": "Push",
-        "command": "git-commands-toolkit.gitPush"
+        "command": "git-palette.gitPush"
       },
       {
         "title": "Show Git Commands",
-        "command": "git-commands-toolkit.showCustomCommands"
+        "command": "git-palette.showCustomCommands"
       }
     ],
     "keybindings": [
       {
-        "command": "git-commands-toolkit.showCustomCommands",
+        "command": "git-palette.showCustomCommands",
         "key": "ctrl+shift+g",
         "mac": "cmd+shift+g"
       }

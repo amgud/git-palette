@@ -6,7 +6,7 @@ import { executeGitCommand } from '../utils';
  */
 export async function gitAdd() {
   // Check if we should always add all changes or prompt for files
-  const config = vscode.workspace.getConfiguration('git-commands-toolkit');
+  const config = vscode.workspace.getConfiguration('git-palette');
   const alwaysAddAllChanges = config.get<boolean>('alwaysAddAllChanges', true);
 
   let files = '.';
