@@ -26,7 +26,7 @@
     "onCommand:git-palette.gitPush",
     "onCommand:git-palette.showCustomCommands"
   ],
-  "main": "./build/extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "configuration": {
       "title": "Git Palette",
@@ -87,12 +87,12 @@
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
+    "@types/bun": "^1.2.14",
     "@types/node": "^20",
     "@types/vscode": "^1.73.0",
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@types/bun": "^1.2.14",
     "fuzzysort": "^3.1.0"
   }
 }
