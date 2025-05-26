@@ -35,13 +35,6 @@ export async function showCommandPalette() {
       keywords: ['commit', 'amend', 'edit', 'change', 'previous'],
     },
     {
-      label: '$(arrow-right) Commit Force',
-      description: 'Force commit changes',
-      command: 'git-commands-toolkit.gitCommitForce',
-      alwaysShow: true,
-      keywords: ['commit', 'force', 'override'],
-    },
-    {
       label: '$(repo-clone) Clone',
       description: 'Clone a repository into a new directory',
       command: 'git-commands-toolkit.gitClone',
