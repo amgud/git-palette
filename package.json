@@ -14,30 +14,38 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:getting-started-sample.runCommand",
-    "onCommand:getting-started-sample.changeSetting",
-    "onCommand:getting-started-sample.setContext",
-    "onCommand:getting-started-sample.sayHello",
-    "onCommand:getting-started-sample.viewSources",
+    "onCommand:getting-started-sample.gitStatus",
+    "onCommand:getting-started-sample.gitAdd",
+    "onCommand:getting-started-sample.gitCommit",
+    "onCommand:getting-started-sample.gitClone",
+    "onCommand:getting-started-sample.gitPull",
     "onCommand:getting-started-sample.showCustomCommands"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "menus": {
-      "file/newFile": [
-        {
-          "command": "getting-started-sample.sayHello"
-        }
-      ]
-    },
     "commands": [
       {
-        "title": "Getting Started Sample: Say Hello",
-        "shortTitle": "Say Hello (This is the name used in the New File quick pick)",
-        "command": "getting-started-sample.sayHello"
+        "title": "Git: Status",
+        "command": "getting-started-sample.gitStatus"
       },
       {
-        "title": "Getting Started Sample: Show Custom Commands",
+        "title": "Git: Add",
+        "command": "getting-started-sample.gitAdd"
+      },
+      {
+        "title": "Git: Commit",
+        "command": "getting-started-sample.gitCommit"
+      },
+      {
+        "title": "Git: Clone",
+        "command": "getting-started-sample.gitClone"
+      },
+      {
+        "title": "Git: Pull",
+        "command": "getting-started-sample.gitPull"
+      },
+      {
+        "title": "Git: Show Commands",
         "command": "getting-started-sample.showCustomCommands"
       }
     ],
