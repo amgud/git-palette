@@ -2,7 +2,14 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { showCommandPalette } from './commandPalette';
-import { gitAdd, gitCommit, gitClone, gitPull, gitPush } from './commands';
+import {
+  gitAdd,
+  gitCommit,
+  gitCommitAmend,
+  gitClone,
+  gitPull,
+  gitPush,
+} from './commands';
 
 /**
  * This method is called when your extension is activated
@@ -40,5 +47,13 @@ export function activate(context: vscode.ExtensionContext): void {
   // Git Push command
   context.subscriptions.push(
     vscode.commands.registerCommand('git-commands-toolkit.gitPush', gitPush)
+  );
+
+  // Git Commit Amend command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'git-commands-toolkit.gitCommitAmend',
+      gitCommitAmend
+    )
   );
 }
