@@ -16,6 +16,7 @@ Quick access to common Git commands directly from VS Code with a convenient keyb
   - `Clone` - Clone repositories
   - `Pull` - Get remote changes
   - `Push` - Send local changes
+  - `Rename Branch` - Change current branch name
 
 ## 🚀 Usage
 
@@ -25,6 +26,7 @@ Quick access to common Git commands directly from VS Code with a convenient keyb
 2. Type to search commands with fuzzy matching:
    - Type `amend` to find "Commit Amend"
    - Type `push` or `upload` to find "Push"
+   - Type `rename` to find "Rename Branch"
 
 ### 🔍 Command Palette
 
@@ -39,11 +41,24 @@ Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) and type "Git Palett
 - `git-palette.autoAddFiles`: Automatically add all files when committing (default: true)
 - `git-palette.alwaysAddAllChanges`: Add all changes when using Git Add (true) or prompt for files (false)
 
+## 💡 Examples
+
+### Renaming a Branch
+
+1. Press `Cmd+Shift+G` (Mac) or `Ctrl+Shift+G` (Windows/Linux)
+2. Type "rename" to find the "Rename Branch" command
+3. Enter the new branch name in the input box
+4. The current branch will be renamed to the new name
+
 ## 📝 Release Notes
 
 ### 1.0.0
 
-Initial release of Git Palette extension. ✨
+Initial release of Git Palette extension with the following features: ✨
+
+- Quick access to common Git commands
+- Branch renaming functionality
+- Fuzzy search for commands
 
 ## 🤝 Contributing
 

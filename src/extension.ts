@@ -12,6 +12,7 @@ import {
   gitPushForce,
   gitUndoCommit,
   gitEditCommitMessage,
+  renameBranch,
 } from './commands';
 
 /**
@@ -76,5 +77,10 @@ export function activate(context: vscode.ExtensionContext): void {
       'git-palette.gitEditCommitMessage',
       gitEditCommitMessage
     )
+  );
+
+  // Git Rename Branch command
+  context.subscriptions.push(
+    vscode.commands.registerCommand('git-palette.renameBranch', renameBranch)
   );
 }

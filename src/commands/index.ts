@@ -7,3 +7,4 @@ export { gitPush } from './push';
 export { gitPushForce } from './pushForce';
 export { gitUndoCommit } from './undoCommit';
 export { gitEditCommitMessage } from './editCommitMessage';
+export { renameBranch } from './renameBranch';
