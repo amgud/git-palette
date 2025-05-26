@@ -24,12 +24,18 @@ export async function gitCommit() {
     // Automatically add all files if the setting is enabled
     if (autoAddFiles) {
       await executeGitCommand('add .');
-      vscode.window.showInformationMessage('Added all files to staging area');
+      // Combined message will be shown after commit
     }
 
     // Then commit
     await executeGitCommand(`commit -m "${message}"`);
-    vscode.window.showInformationMessage(`Committed: ${message}`);
+
+    // Show a single combined message
+    const resultMessage = autoAddFiles
+      ? 'Added all files and committed'
+      : 'Committed';
+
+    vscode.window.showInformationMessage(`${resultMessage}: ${message}`);
   } catch (error) {
     vscode.window.showErrorMessage(`Git Commit Error: ${error}`);
   }
