@@ -15,6 +15,9 @@ import {
   renameBranch,
 } from './commands';
 
+// Create output channel for logging
+export const outputChannel = vscode.window.createOutputChannel('Git Palette');
+
 /**
  * This method is called when your extension is activated
  * Your extension is activated the very first time the command is executed
