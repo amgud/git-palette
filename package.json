@@ -226,11 +226,11 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -p ./",
     "lint": "eslint",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
+    "pretest": "npm run build && npm run lint",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
