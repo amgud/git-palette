@@ -35,14 +35,14 @@ export async function showCommandPalette() {
       keywords: ['commit', 'amend', 'edit', 'change', 'previous'],
     },
     {
-      label: '$(repo-clone) Clone',
+      label: '$(clone) Clone',
       description: 'Clone a repository into a new directory',
       command: 'git-palette.gitClone',
       alwaysShow: true,
       keywords: ['clone', 'download', 'repository', 'repo'],
     },
     {
-      label: '$(sync) Pull',
+      label: '$(cloud-download) Pull',
       description: 'Fetch from and integrate with another repository',
       command: 'git-palette.gitPull',
       alwaysShow: true,
@@ -56,7 +56,7 @@ export async function showCommandPalette() {
       keywords: ['push', 'upload', 'publish', 'remote'],
     },
     {
-      label: '$(arrow-circle-left) Undo Commit',
+      label: '$(discard) Undo Commit',
       description: 'Undo the last commit (before pushing)',
       command: 'git-palette.gitUndoCommit',
       alwaysShow: true,
@@ -70,7 +70,7 @@ export async function showCommandPalette() {
       keywords: ['edit', 'change', 'modify', 'commit', 'message', 'amend'],
     },
     {
-      label: '$(edit) Rename Branch',
+      label: '$(replace) Rename Branch',
       description: 'Rename the current branch',
       command: 'git-palette.renameBranch',
       alwaysShow: true,
