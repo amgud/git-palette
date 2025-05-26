@@ -9,6 +9,7 @@ import {
   gitClone,
   gitPull,
   gitPush,
+  gitPushForce,
 } from './commands';
 
 /**
@@ -54,6 +55,14 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'git-commands-toolkit.gitCommitAmend',
       gitCommitAmend
+    )
+  );
+
+  // Git Push Force command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'git-commands-toolkit.gitPushForce',
+      gitPushForce
     )
   );
 }

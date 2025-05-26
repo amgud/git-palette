@@ -5,7 +5,7 @@ import { executeGitCommand } from '../utils';
  * Git Commit command implementation
  */
 export async function gitCommit() {
-  // First prompt for the commit message
+  // Prompt for the commit message
   const message = await vscode.window.showInputBox({
     prompt: 'Commit message',
     placeHolder: 'Enter commit message',
@@ -15,33 +15,9 @@ export async function gitCommit() {
     return; // User cancelled or entered empty message
   }
 
-  // Then show checkbox for amend option
-  const commitOptions = await vscode.window.showQuickPick(
-    [{ label: 'Amend previous commit', picked: false }],
-    {
-      placeHolder: 'Select commit options (if any)',
-      canPickMany: true,
-    }
-  );
-
-  if (!commitOptions) {
-    return; // User cancelled
-  }
-
-  const shouldAmend = commitOptions.some(
-    (option) => option.label === 'Amend previous commit'
-  );
-
   try {
-    let commitCommand = 'commit';
-    if (shouldAmend) {
-      commitCommand += ' --amend';
-    }
-
-    await executeGitCommand(`${commitCommand} -m "${message}"`);
-
-    const amendText = shouldAmend ? ' (amended)' : '';
-    vscode.window.showInformationMessage(`Committed${amendText}: ${message}`);
+    await executeGitCommand(`commit -m "${message}"`);
+    vscode.window.showInformationMessage(`Committed: ${message}`);
   } catch (error) {
     vscode.window.showErrorMessage(`Git Commit Error: ${error}`);
   }
