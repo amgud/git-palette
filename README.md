@@ -50,16 +50,10 @@ Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) and type "Git Palett
 3. Enter the new branch name in the input box
 4. The current branch will be renamed to the new name
 
-## 📝 Release Notes
-
-### 1.0.0
-
-Initial release of Git Palette extension with the following features: ✨
-
-- Quick access to common Git commands
-- Branch renaming functionality
-- Fuzzy search for commands
-
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to submit a PR or open an issue.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -2,7 +2,7 @@
   "name": "git-palette",
   "displayName": "Git Palette",
   "description": "Quick access to common Git commands with keyboard shortcuts",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "vscode-samples",
   "private": true,
   "license": "MIT",
