@@ -4,6 +4,7 @@ import { executeGitCommand } from '../utils';
 /**
  * Git Commit Amend command implementation
  * Allows amending the previous commit with a new message
+ * Automatically adds all files before amending
  */
 export async function gitCommitAmend() {
   try {
@@ -20,6 +21,10 @@ export async function gitCommitAmend() {
     if (message === undefined) {
       return; // User cancelled
     }
+
+    // Automatically add all files
+    await executeGitCommand('add .');
+    vscode.window.showInformationMessage('Added all files to staging area');
 
     // Execute the amend command
     await executeGitCommand(`commit --amend -m "${message}"`);
