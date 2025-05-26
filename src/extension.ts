@@ -11,6 +11,7 @@ import {
   gitPush,
   gitPushForce,
   gitUndoCommit,
+  gitEditCommitMessage,
 } from './commands';
 
 /**
@@ -72,6 +73,14 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'git-commands-toolkit.gitUndoCommit',
       gitUndoCommit
+    )
+  );
+
+  // Git Edit Commit Message command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'git-commands-toolkit.gitEditCommitMessage',
+      gitEditCommitMessage
     )
   );
 }
