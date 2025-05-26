@@ -10,6 +10,7 @@ import {
   gitPull,
   gitPush,
   gitPushForce,
+  gitUndoCommit,
 } from './commands';
 
 /**
@@ -63,6 +64,14 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand(
       'git-commands-toolkit.gitPushForce',
       gitPushForce
+    )
+  );
+
+  // Git Undo Commit command
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'git-commands-toolkit.gitUndoCommit',
+      gitUndoCommit
     )
   );
 }

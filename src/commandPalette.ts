@@ -55,6 +55,13 @@ export async function showCommandPalette() {
       alwaysShow: true,
       keywords: ['push', 'upload', 'publish', 'remote'],
     },
+    {
+      label: '$(arrow-circle-left) Undo Commit',
+      description: 'Undo the last commit (before pushing)',
+      command: 'git-commands-toolkit.gitUndoCommit',
+      alwaysShow: true,
+      keywords: ['undo', 'reset', 'revert', 'commit', 'rollback'],
+    },
   ];
 
   // Create a custom QuickPick for better fuzzy search
