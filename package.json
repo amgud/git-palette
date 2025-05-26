@@ -31,27 +31,35 @@
   "contributes": {
     "commands": [
       {
-        "title": "Git: Add",
+        "title": "Add",
         "command": "git-commands-toolkit.gitAdd"
       },
       {
-        "title": "Git: Commit",
+        "title": "Commit",
         "command": "git-commands-toolkit.gitCommit"
       },
       {
-        "title": "Git: Clone",
+        "title": "Commit Amend",
+        "command": "git-commands-toolkit.gitCommitAmend"
+      },
+      {
+        "title": "Commit Force",
+        "command": "git-commands-toolkit.gitCommitForce"
+      },
+      {
+        "title": "Clone",
         "command": "git-commands-toolkit.gitClone"
       },
       {
-        "title": "Git: Pull",
+        "title": "Pull",
         "command": "git-commands-toolkit.gitPull"
       },
       {
-        "title": "Git: Push",
+        "title": "Push",
         "command": "git-commands-toolkit.gitPush"
       },
       {
-        "title": "Git: Show Commands",
+        "title": "Show Git Commands",
         "command": "git-commands-toolkit.showCustomCommands"
       }
     ],
