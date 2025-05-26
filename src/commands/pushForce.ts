@@ -1,11 +1,14 @@
 import * as vscode from 'vscode';
-import { executeGitCommand } from '../utils';
+import { executeGitCommand, log } from '../utils';
 
 /**
  * Git Push Force command implementation
  * Provides options for force push with lease (safer) or regular force push
  */
 export async function gitPushForce() {
+  log.info('Git push force command started');
+  log.warning('User is attempting a force push operation');
+
   try {
     // Show a warning and confirmation before proceeding with force push
     const warningMessage =
@@ -34,6 +37,7 @@ export async function gitPushForce() {
     });
 
     if (!selectedOption || selectedOption.label === 'Cancel') {
+      log.info('User cancelled force push operation');
       return; // User cancelled
     }
 
@@ -43,19 +47,30 @@ export async function gitPushForce() {
         ? '--force-with-lease'
         : '--force';
 
+    log.info(
+      `User selected force push option: ${selectedOption.label} (${forceFlag})`
+    );
+
     // Get current branch
+    log.info('Getting current branch name');
     const branchOutput = await executeGitCommand('branch --show-current');
     const currentBranch = branchOutput.trim();
+    log.info(`Current branch: ${currentBranch}`);
 
     // Execute force push
+    log.info(`Executing: git push ${forceFlag} origin ${currentBranch}`);
     const output = await executeGitCommand(
       `push ${forceFlag} origin ${currentBranch}`
     );
 
-    vscode.window.showInformationMessage(
-      `Force push successful: ${output.trim() || `to origin/${currentBranch}`}`
-    );
+    const successMessage = `Force push successful: ${
+      output.trim() || `to origin/${currentBranch}`
+    }`;
+    vscode.window.showInformationMessage(successMessage);
+    log.info(successMessage);
   } catch (error) {
-    vscode.window.showErrorMessage(`Git Force Push Error: ${error}`);
+    const errorMsg = `Git Force Push Error: ${error}`;
+    vscode.window.showErrorMessage(errorMsg);
+    log.error(errorMsg);
   }
 }
