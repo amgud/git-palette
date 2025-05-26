@@ -28,6 +28,16 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Git Commands Toolkit",
+      "properties": {
+        "git-commands-toolkit.autoAddFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically add all files when committing or amending a commit"
+        }
+      }
+    },
     "commands": [
       {
         "title": "Add",

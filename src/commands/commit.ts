@@ -3,7 +3,7 @@ import { executeGitCommand } from '../utils';
 
 /**
  * Git Commit command implementation
- * Automatically adds all files before committing
+ * Automatically adds all files before committing if the setting is enabled
  */
 export async function gitCommit() {
   // Prompt for the commit message
@@ -17,9 +17,15 @@ export async function gitCommit() {
   }
 
   try {
-    // Automatically add all files
-    await executeGitCommand('add .');
-    vscode.window.showInformationMessage('Added all files to staging area');
+    // Check if auto-add is enabled
+    const config = vscode.workspace.getConfiguration('git-commands-toolkit');
+    const autoAddFiles = config.get<boolean>('autoAddFiles', true);
+
+    // Automatically add all files if the setting is enabled
+    if (autoAddFiles) {
+      await executeGitCommand('add .');
+      vscode.window.showInformationMessage('Added all files to staging area');
+    }
 
     // Then commit
     await executeGitCommand(`commit -m "${message}"`);
