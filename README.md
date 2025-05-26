@@ -1,53 +1,50 @@
-# Git Palette for VS Code
+# 🎨 Git Palette for VS Code
 
-This extension provides quick access to common Git commands directly from VS Code with a convenient keyboard shortcut.
+Quick access to common Git commands directly from VS Code with a convenient keyboard shortcut.
 
-## Features
+![Git Palette Demo](images/demo.gif)
 
-- Access Git commands directly from VS Code with a single keyboard shortcut
-- Execute Git commands with a user-friendly interface
-- **Smart Fuzzy Search** to quickly find commands using related terms
-- Available commands:
-  - Add - Add file contents to the index
-  - Commit - Record changes to the repository
-  - Commit Amend - Amend the previous commit
-  - Commit Force - Force commit changes
-  - Clone - Clone a repository into a new directory
-  - Pull - Fetch from and integrate with another repository
-  - Push - Push local changes to a remote repository
+## ✨ Features
 
-## Usage
+- 🚀 Access Git commands with a single keyboard shortcut
+- 🔍 **Smart Fuzzy Search** to quickly find commands
+- 💻 User-friendly command interface
+- 📦 Available commands:
+  - `Add` - Stage changes
+  - `Commit` - Record changes
+  - `Commit Amend` - Update previous commit
+  - `Clone` - Clone repositories
+  - `Pull` - Get remote changes
+  - `Push` - Send local changes
 
-You can access Git commands in two ways:
+## 🚀 Usage
 
-### Using Command Palette
-
-1. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) to open the Command Palette
-2. Type commands like "Add", "Commit", or "Push" and select from available Git commands
-
-### Using Keyboard Shortcut
+### ⌨️ Keyboard Shortcut (Recommended)
 
 1. Press `Cmd+Shift+G` (Mac) or `Ctrl+Shift+G` (Windows/Linux)
-2. Select a Git command from the quick pick menu
-3. **Enhanced Fuzzy Search**: Type any related term to find commands quickly
-   - Example: Type "amend" to find "Commit Amend"
-   - Example: Type "push" or "upload" to find "Push"
-   - Example: Type "rec" to find commands with "record" in their description
+2. Type to search commands with fuzzy matching:
+   - Type `amend` to find "Commit Amend"
+   - Type `push` or `upload` to find "Push"
 
-## Requirements
+### 🔍 Command Palette
 
-- Git must be installed and accessible from your PATH
+Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux) and type "Git Palette"
 
-## Extension Settings
+## 📋 Requirements
 
-- No specific settings required
+- Git installed and in your PATH
 
-## Known Issues
+## ⚙️ Configuration
 
-- None at this time
+- `git-palette.autoAddFiles`: Automatically add all files when committing (default: true)
+- `git-palette.alwaysAddAllChanges`: Add all changes when using Git Add (true) or prompt for files (false)
 
-## Release Notes
+## 📝 Release Notes
 
 ### 1.0.0
 
-Initial release of the Git Palette extension.
+Initial release of Git Palette extension. ✨
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to submit a PR or open an issue.
