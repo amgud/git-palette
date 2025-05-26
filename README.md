@@ -1,10 +1,10 @@
-# Git Commands Extension for VS Code
+# Git Commands Toolkit for VS Code
 
-This extension provides quick access to common Git commands directly from VS Code.
+This extension provides quick access to common Git commands directly from VS Code with a convenient keyboard shortcut.
 
 ## Features
 
-- Access Git commands directly from VS Code
+- Access Git commands directly from VS Code with a single keyboard shortcut
 - Execute Git commands with a user-friendly interface
 - Available commands:
   - Git Add - Add file contents to the index
@@ -43,4 +43,4 @@ You can access Git commands in two ways:
 
 ### 1.0.0
 
-Initial release of the Git Commands extension.
+Initial release of the Git Commands Toolkit extension.

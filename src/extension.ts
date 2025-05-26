@@ -38,38 +38,38 @@ export function activate(context: vscode.ExtensionContext): void {
   // Add this command to monitor when the command palette is opened
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.showCustomCommands',
+      'git-commands-toolkit.showCustomCommands',
       async () => {
         // Show our Git commands
         const commands = [
           {
             label: '$(add) Git Add',
             description: 'Add file contents to the index',
-            command: 'getting-started-sample.gitAdd',
+            command: 'git-commands-toolkit.gitAdd',
             alwaysShow: true,
           },
           {
             label: '$(check) Git Commit',
             description: 'Record changes to the repository',
-            command: 'getting-started-sample.gitCommit',
+            command: 'git-commands-toolkit.gitCommit',
             alwaysShow: true,
           },
           {
             label: '$(repo-clone) Git Clone',
             description: 'Clone a repository into a new directory',
-            command: 'getting-started-sample.gitClone',
+            command: 'git-commands-toolkit.gitClone',
             alwaysShow: true,
           },
           {
             label: '$(sync) Git Pull',
             description: 'Fetch from and integrate with another repository',
-            command: 'getting-started-sample.gitPull',
+            command: 'git-commands-toolkit.gitPull',
             alwaysShow: true,
           },
           {
             label: '$(cloud-upload) Git Push',
             description: 'Push local changes to a remote repository',
-            command: 'getting-started-sample.gitPush',
+            command: 'git-commands-toolkit.gitPush',
             alwaysShow: true,
           },
         ];
@@ -89,32 +89,29 @@ export function activate(context: vscode.ExtensionContext): void {
 
   // Git Add command
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'getting-started-sample.gitAdd',
-      async () => {
-        const files = await vscode.window.showInputBox({
-          prompt: 'Files to add (e.g., "." for all files)',
-          placeHolder: '.',
-          value: '.',
-        });
+    vscode.commands.registerCommand('git-commands-toolkit.gitAdd', async () => {
+      const files = await vscode.window.showInputBox({
+        prompt: 'Files to add (e.g., "." for all files)',
+        placeHolder: '.',
+        value: '.',
+      });
 
-        if (files === undefined) {
-          return; // User cancelled
-        }
-        try {
-          await executeGitCommand(`add ${files}`);
-          vscode.window.showInformationMessage(`Added files: ${files}`);
-        } catch (error) {
-          vscode.window.showErrorMessage(`Git Add Error: ${error}`);
-        }
+      if (files === undefined) {
+        return; // User cancelled
       }
-    )
+      try {
+        await executeGitCommand(`add ${files}`);
+        vscode.window.showInformationMessage(`Added files: ${files}`);
+      } catch (error) {
+        vscode.window.showErrorMessage(`Git Add Error: ${error}`);
+      }
+    })
   );
 
   // Git Commit command
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.gitCommit',
+      'git-commands-toolkit.gitCommit',
       async () => {
         const message = await vscode.window.showInputBox({
           prompt: 'Commit message',
@@ -137,7 +134,7 @@ export function activate(context: vscode.ExtensionContext): void {
   // Git Clone command
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.gitClone',
+      'git-commands-toolkit.gitClone',
       async () => {
         const repoUrl = await vscode.window.showInputBox({
           prompt: 'Repository URL',
@@ -180,7 +177,7 @@ export function activate(context: vscode.ExtensionContext): void {
   // Git Pull command
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.gitPull',
+      'git-commands-toolkit.gitPull',
       async () => {
         try {
           const output = await executeGitCommand('pull');
@@ -197,7 +194,7 @@ export function activate(context: vscode.ExtensionContext): void {
   // Git Push command
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'getting-started-sample.gitPush',
+      'git-commands-toolkit.gitPush',
       async () => {
         try {
           const output = await executeGitCommand('push');
