@@ -35,7 +35,7 @@ jobs:
 
       - name: 🏷️ Get package version
         id: package-version
-        run: echo "version=$(bun run -s -p 'require("./package.json").version')" >> $GITHUB_OUTPUT
+        run: echo "version=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
 
       - name: 📦 Package VSIX
         run: vsce package --out git-palette-${{ steps.package-version.outputs.version }}.vsix
