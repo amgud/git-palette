@@ -87,14 +87,22 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run build",
+    "vscode:prepublish": "bun run build",
     "build": "tsc --noEmit && bun build.ts",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "package": "bunx @vscode/vsce package",
+    "publish": "bunx @vscode/vsce publish",
+    "clean": "rm -rf dist build *.vsix",
+    "pretest": "bun run build",
+    "test": "echo \"No tests specified\" && exit 0",
+    "lint": "echo \"Add your linter here\"",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/bun": "^1.2.14",
     "@types/node": "^20",
     "@types/vscode": "^1.73.0",
+    "@vscode/vsce": "^3.0.0",
     "typescript": "^5.8.2"
   },
   "dependencies": {

@@ -1,0 +1,53 @@
+name: 🚀 Build and Package VSIX
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🧅 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📥 Install dependencies
+        run: bun install
+
+      - name: 🏗️ Build extension
+        run: bun run build
+
+      - name: 🔍 Type check
+        run: bunx tsc --noEmit
+
+      - name: 📦 Install vsce
+        run: bun add -g @vscode/vsce
+
+      - name: 🏷️ Get package version
+        id: package-version
+        run: echo "version=$(bun run -s -p 'require("./package.json").version')" >> $GITHUB_OUTPUT
+
+      - name: 📦 Package VSIX
+        run: vsce package --out git-palette-${{ steps.package-version.outputs.version }}.vsix
+
+      - name: 📤 Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: git-palette-vsix
+          path: git-palette-${{ steps.package-version.outputs.version }}.vsix
+
+      - name: � Upload VSIX to release (on release)
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: git-palette-${{ steps.package-version.outputs.version }}.vsix

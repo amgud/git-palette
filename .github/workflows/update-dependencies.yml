@@ -1,0 +1,55 @@
+name: 🔄 Update Dependencies
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🧅 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 🔄 Update dependencies
+        run: |
+          bun update
+          bun install
+
+      - name: 🏗️ Test build after updates
+        run: |
+          bun run build
+          bunx tsc --noEmit
+
+      - name: 📦 Test packaging
+        run: bunx @vscode/vsce package --out test-update.vsix
+
+      - name: 🧹 Cleanup test package
+        run: rm -f test-update.vsix
+
+      - name: 📝 Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: 🔧 update dependencies'
+          title: '🔧 Automated dependency updates'
+          body: |
+            🤖 This is an automated pull request to update dependencies.
+
+            ## Changes
+            - Updated all dependencies to their latest compatible versions
+            - Verified build and packaging still works
+
+            Please review the changes before merging.
+          branch: automated/dependency-updates
+          delete-branch: true

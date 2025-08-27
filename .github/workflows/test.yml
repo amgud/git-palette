@@ -1,0 +1,65 @@
+name: 🧪 Test Extension
+
+on:
+  push:
+    branches: [master, main, develop]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 🧅 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📋 Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: 📥 Install dependencies
+        run: bun install
+
+      - name: 🔍 Type check
+        run: bunx tsc --noEmit
+
+      - name: 🏗️ Build extension
+        run: bun run build
+
+      - name: 🧪 Run tests (if available)
+        run: |
+          if [ -f "package.json" ] && grep -q '"test"' package.json; then
+            bun test
+          else
+            echo "No tests found, skipping test execution"
+          fi
+        shell: bash
+
+      - name: 📦 Verify VSIX packaging
+        run: |
+          bunx @vscode/vsce package --out test-package.vsix
+          ls -la test-package.vsix
+
+      - name: 🧹 Cleanup
+        run: rm -f test-package.vsix
+        shell: bash

@@ -1,0 +1,106 @@
+name: 🐛 Bug Report
+description: Report a bug in the Git Palette extension
+title: '🐛 [BUG]: '
+labels: ['bug']
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below to help us understand and fix the issue.
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 🐛 Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe the bug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: 🔄 Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Execute command '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: ✅ Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+      placeholder: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 📸 Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+      placeholder: Drag and drop screenshots here...
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 💻 Operating System
+      description: Which operating system are you using?
+      options:
+        - Windows
+        - macOS
+        - Linux (Ubuntu)
+        - Linux (Other)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: vscode-version
+    attributes:
+      label: VS Code Version
+      description: What version of VS Code are you using?
+      placeholder: e.g. 1.73.0
+    validations:
+      required: true
+
+  - type: input
+    id: extension-version
+    attributes:
+      label: Extension Version
+      description: What version of Git Palette are you using?
+      placeholder: e.g. 0.1.0
+    validations:
+      required: true
+
+  - type: input
+    id: git-version
+    attributes:
+      label: Git Version
+      description: What version of Git are you using?
+      placeholder: e.g. 2.37.0
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📝 Additional Context
+      description: Add any other context about the problem here.
+      placeholder: Any other information that might be helpful...
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📋 Extension Output / Logs
+      description: If relevant, include any error messages or logs
+      placeholder: |
+        Include error messages from:
+        - VS Code Developer Tools Console (Help > Toggle Developer Tools)
+        - Git Output Panel (View > Output > Git)
+        - Extension Host Output
